@@ -7,8 +7,35 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
+// Rate limiter - allows max 5 requests per IP per 10 minutes
+const rateMap = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT = 5
+const RATE_WINDOW_MS = 10 * 60 * 1000 // 10 minutes
+
 function validatePhone(phone: string): boolean {
   return /^[2457][0-9]{7}$/.test(phone.replace(/\s/g, ""))
+}
+
+function checkRateLimit(req: NextRequest): NextResponse | null {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? 
+             req.headers.get("cf-connecting-ip") ?? "unknown"
+  const now = Date.now()
+  const entry = rateMap.get(ip)
+
+  if (!entry || now > entry.resetAt) {
+    rateMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    return null
+  }
+
+  if (entry.count >= RATE_LIMIT) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
+  entry.count++
+  return null
 }
 
 const VALID_SIZES = ["S", "M", "L", "XL", "XXL"]
@@ -19,6 +46,10 @@ const VALID_GOVERNORATES = [
 ]
 
 export async function POST(req: NextRequest) {
+  // Check rate limit
+  const rateLimitResponse = checkRateLimit(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const body = await req.json()
     const { fname, lname, phone, city, address, size, qty, note } = body
