@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = "force-dynamic"
+
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { supabase } from "@/lib/supabase"
@@ -300,12 +302,10 @@ export default function AdminPage() {
   const [authed, setAuthed] = useState<boolean | null>(null)
 
   useEffect(() => {
-    // Check if already logged in via Supabase session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setAuthed(!!session)
     })
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setAuthed(!!session)
     })
