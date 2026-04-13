@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 
-// Server-side Supabase client using service role key (not exposed to browser)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
 function validatePhone(phone: string): boolean {
   return /^[2457][0-9]{7}$/.test(phone.replace(/\s/g, ""))
 }
@@ -19,6 +13,12 @@ const VALID_GOVERNORATES = [
 ]
 
 export async function POST(req: NextRequest) {
+  // Server-side Supabase client — created at request time, not build time
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+
   try {
     const body = await req.json()
     const { fname, lname, phone, city, address, size, qty, note } = body
