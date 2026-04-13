@@ -7,7 +7,7 @@ const rateMap = new Map<string, { count: number; resetAt: number }>()
 const LIMIT = 5
 const WINDOW_MS = 10 * 60 * 1000 // 10 minutes
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   // Only rate-limit the /api/order route
   if (!req.nextUrl.pathname.startsWith("/api/order")) {
     return NextResponse.next()
