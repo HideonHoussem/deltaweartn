@@ -67,8 +67,14 @@ export function OrderForm() {
     })
 
     if (!res.ok) {
-      const { error } = await res.json()
-      alert(error ?? "Something went wrong. Please try again.")
+      let errorMessage = "Something went wrong. Please try again."
+      try {
+        const data = await res.json()
+        if (data.error) errorMessage = data.error
+      } catch (err) {
+        console.error("Failed to parse error response:", err)
+      }
+      alert(errorMessage)
       setLoading(false)
       return
     }

@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   description: 'Performance compression wear engineered for athletes who don\'t settle. Moisture-wicking technology, 4-way stretch fabric — made for the grind. Free delivery across Tunisia.',
   keywords: ['compression wear', 'athletic wear', 'Tunisia', 'sportswear', 'gym wear', 'fitness apparel'],
   authors: [{ name: 'DeltaWear TN' }],
+  icons: {
+    icon: '/images/logo.png',
+  },
   openGraph: {
     title: 'DeltaWear TN | Built Different',
     description: 'Performance compression wear engineered for athletes who don\'t settle.',

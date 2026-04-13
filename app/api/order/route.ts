@@ -20,6 +20,17 @@ export async function POST(req: NextRequest) {
   )
 
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.error("Missing Supabase environment variables.")
+      return NextResponse.json({ error: "Server configuration error. Please try again later." }, { status: 500 })
+    }
+
+    // Server-side Supabase client — created at request time, not build time
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
+    )
+
     const body = await req.json()
     const { fname, lname, phone, city, address, size, qty, note } = body
 
