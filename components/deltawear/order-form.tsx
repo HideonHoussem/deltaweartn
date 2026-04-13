@@ -10,7 +10,7 @@ const governorates = [
 ]
 
 function validatePhone(phone: string): boolean {
-  return /^[2457][0-9]{7}$/.test(phone.replace(/\s/g, ""))
+  return /^[234579][0-9]{7}$/.test(phone.replace(/\s/g, ""))
 }
 
 export function OrderForm() {

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 
 function validatePhone(phone: string): boolean {
-  return /^[2457][0-9]{7}$/.test(phone.replace(/\s/g, ""))
+  return /^[234579][0-9]{7}$/.test(phone.replace(/\s/g, ""))
 }
 
 const VALID_SIZES = ["S", "M", "L", "XL", "XXL"]

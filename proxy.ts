@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server"
 // Allows max 5 requests per IP per 10 minutes on the order API
 const rateMap = new Map<string, { count: number; resetAt: number }>()
 
-const LIMIT = 5
+const LIMIT = 50
 const WINDOW_MS = 10 * 60 * 1000 // 10 minutes
 
 export function proxy(req: NextRequest) {
