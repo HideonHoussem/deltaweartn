@@ -36,7 +36,7 @@ export function Hero() {
         {/* Eyebrow */}
         <div className="flex items-center gap-4 mb-7 opacity-0 animate-[fadeSlideUp_0.8s_0.4s_forwards]">
           <div className="w-10 h-[1px] bg-[var(--accent)]" />
-          <div className="text-[9px] tracking-[7px] uppercase text-[var(--accent)]">
+          <div className="text-[11px] font-medium tracking-[7px] uppercase text-[var(--accent)]/90">
             Drop 001 · Now Available · Tunisia
           </div>
         </div>
@@ -51,7 +51,7 @@ export function Hero() {
         </h1>
 
         {/* Description */}
-        <p className="mt-8 text-[13px] font-light text-white/45 leading-[1.9] max-w-[440px] tracking-[0.5px] opacity-0 animate-[fadeSlideUp_0.9s_0.8s_forwards]">
+        <p className="mt-8 text-[13px] font-normal text-white/70 leading-[1.9] max-w-[440px] tracking-[0.5px] opacity-0 animate-[fadeSlideUp_0.9s_0.8s_forwards]">
           Performance compression wear engineered for athletes who don&apos;t settle. 
           Moisture-wicking technology, 4-way stretch fabric — made for the grind.
         </p>
@@ -82,8 +82,8 @@ export function Hero() {
         ].map((stat, i) => (
           <div key={i}>
             <div className="text-right">
-              <div className="text-4xl font-extralight tracking-[-1px] leading-none">{stat.num}</div>
-              <div className="text-[9px] tracking-[4px] text-white/30 uppercase mt-1">{stat.label}</div>
+              <div className="text-4xl font-light tracking-[-1px] leading-none">{stat.num}</div>
+              <div className="text-[11px] tracking-[4px] text-white/60 uppercase mt-1.5 font-medium">{stat.label}</div>
             </div>
             {i < 2 && <div className="w-10 h-[1px] bg-white/10 self-end mt-4" />}
           </div>
@@ -91,9 +91,9 @@ export function Hero() {
       </div>
 
       {/* Scroll Hint */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-2.5 opacity-25 animate-[fadeIn_1s_1.5s_both]">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-2.5 opacity-50 animate-[fadeIn_1s_1.5s_both]">
         <div className="w-[1px] h-[50px] bg-gradient-to-b from-transparent to-white animate-[pulse_2s_infinite]" />
-        <span className="text-[8px] tracking-[5px] uppercase">Scroll</span>
+        <span className="text-[11px] tracking-[5px] uppercase font-medium">Scroll</span>
       </div>
     </section>
   )

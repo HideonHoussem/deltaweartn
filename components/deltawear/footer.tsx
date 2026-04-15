@@ -11,12 +11,12 @@ export function Footer() {
           height={24}
           className="w-6 h-6 object-contain opacity-60"
         />
-        <span className="text-[10px] tracking-[6px] uppercase font-bold opacity-40">
+        <span className="text-[12px] tracking-[6px] uppercase font-bold opacity-70">
           DeltaWear
         </span>
       </div>
       
-      <div className="text-[9px] tracking-[4px] uppercase text-white/20 text-center">
+      <div className="text-[11px] tracking-[4px] uppercase text-white/60 text-center font-medium">
         © {new Date().getFullYear()} DeltaWear TN · All rights reserved
       </div>
       
@@ -31,7 +31,7 @@ export function Footer() {
             href={link.href}
             target={link.external ? "_blank" : undefined}
             rel={link.external ? "noopener noreferrer" : undefined}
-            className="text-[9px] tracking-[4px] uppercase text-white/25 no-underline hover:text-[var(--accent)] transition-colors"
+            className="text-[11px] tracking-[4px] uppercase text-white/60 no-underline hover:text-[var(--accent)] transition-colors font-medium"
           >
             {link.label}
           </a>

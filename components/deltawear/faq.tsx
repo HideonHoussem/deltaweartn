@@ -43,7 +43,7 @@ export function FAQ() {
     <RevealSection id="faq" className="px-6 md:px-16 py-20 md:py-[120px] bg-[#080808]">
       {/* Header */}
       <div className="max-w-3xl mx-auto text-center mb-16">
-        <div className="text-[9px] tracking-[7px] uppercase text-[var(--accent)] mb-4">
+        <div className="text-[11px] tracking-[7px] uppercase text-[var(--accent)] mb-4 font-bold">
           Got Questions?
         </div>
         <h2 className="text-[clamp(32px,4vw,48px)] font-extrabold tracking-[-1px] uppercase leading-[1.05] mb-4">
@@ -51,7 +51,7 @@ export function FAQ() {
           <br />
           <span className="text-[var(--accent)]">Questions</span>
         </h2>
-        <p className="text-[13px] text-white/40 leading-[1.8]">
+        <p className="text-[13px] text-white/70 leading-[1.8] font-medium">
           Everything you need to know about our products and services
         </p>
       </div>
@@ -87,7 +87,7 @@ export function FAQ() {
               )}
             >
               <div className="px-5 md:px-6 pb-5 md:pb-6">
-                <p className="text-[12px] md:text-[13px] text-white/50 leading-[1.9]">
+                <p className="text-[12px] md:text-[13px] text-white/80 leading-[1.9]">
                   {faq.answer}
                 </p>
               </div>
@@ -98,12 +98,12 @@ export function FAQ() {
 
       {/* Still Have Questions */}
       <div className="max-w-3xl mx-auto mt-12 text-center">
-        <p className="text-[12px] text-white/40 mb-4">
+        <p className="text-[12px] text-white/70 mb-4 font-medium">
           Still have questions? We&apos;re here to help.
         </p>
         <a
           href="#order"
-          className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--accent)] text-[var(--accent)] text-[10px] tracking-[3px] uppercase font-semibold hover:bg-[var(--accent)] hover:text-[var(--black)] transition-all"
+          className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--accent)] text-[var(--accent)] text-[11px] tracking-[3px] uppercase font-bold hover:bg-[var(--accent)] hover:text-[var(--black)] transition-all"
         >
           Place an Order
         </a>

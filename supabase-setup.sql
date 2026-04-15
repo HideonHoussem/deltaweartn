@@ -8,6 +8,7 @@ create table if not exists orders (
   city        text not null,
   address     text not null,
   size        text not null,
+  product     text not null,
   qty         integer not null default 1,
   note        text,
   status      text not null default 'new' check (status in ('new', 'confirmed', 'delivered')),

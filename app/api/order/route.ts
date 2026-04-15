@@ -13,12 +13,6 @@ const VALID_GOVERNORATES = [
 ]
 
 export async function POST(req: NextRequest) {
-  // Server-side Supabase client — created at request time, not build time
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
-
   try {
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
       console.error("Missing Supabase environment variables.")
@@ -32,10 +26,10 @@ export async function POST(req: NextRequest) {
     )
 
     const body = await req.json()
-    const { fname, lname, phone, city, address, size, qty, note } = body
+    const { fname, lname, phone, city, address, size, qty, note, product } = body
 
     // Server-side validation
-    if (!fname?.trim() || !lname?.trim() || !phone || !city || !address?.trim() || !size) {
+    if (!fname?.trim() || !lname?.trim() || !phone || !city || !address?.trim() || !size || !product) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 })
     }
     if (fname.length > 50 || lname.length > 50) {
@@ -51,8 +45,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid governorate." }, { status: 400 })
     }
     const qtyNum = Number(qty)
-    if (!Number.isInteger(qtyNum) || qtyNum < 1 || qtyNum > 5) {
-      return NextResponse.json({ error: "Invalid quantity." }, { status: 400 })
+    if (!Number.isInteger(qtyNum) || qtyNum < 1 || qtyNum > 50) {
+      return NextResponse.json({ error: "Invalid quantity (Max 50 items)." }, { status: 400 })
     }
     if (address.length > 200) {
       return NextResponse.json({ error: "Address too long." }, { status: 400 })
@@ -66,17 +60,21 @@ export async function POST(req: NextRequest) {
       city,
       address: address.trim(),
       size,
+      product: product,
       qty: qtyNum,
       note: note ? String(note).slice(0, 300).trim() : "",
       status: "new",
     }
 
-    const { error } = await supabase.from("orders").insert([order])
-    if (error) throw error
+    const { error: dbError } = await supabase.from("orders").insert([order])
+    if (dbError) {
+      console.error("Supabase Database Insert Error:", dbError.message, dbError.details, dbError.hint)
+      throw dbError
+    }
 
     return NextResponse.json({ success: true, id: order.id })
-  } catch (err) {
-    console.error("Order API error:", err)
-    return NextResponse.json({ error: "Failed to place order." }, { status: 500 })
+  } catch (err: any) {
+    console.error("Order Submission Critical Error:", err)
+    return NextResponse.json({ error: `Order Failure: ${err?.message || 'Check database connection'}` }, { status: 500 })
   }
 }

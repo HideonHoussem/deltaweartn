@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from 'next'
 import { Montserrat, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { CartProvider } from '@/lib/cart-context'
+import { CartDrawer } from '@/components/deltawear/cart-drawer'
+import { CartPopup } from '@/components/deltawear/cart-popup'
 
 const montserrat = Montserrat({ 
   subsets: ["latin"],
@@ -45,8 +48,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <CartProvider>
+          {children}
+          <CartDrawer />
+          <CartPopup />
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </CartProvider>
       </body>
     </html>
   )

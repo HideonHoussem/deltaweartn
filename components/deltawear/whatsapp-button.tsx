@@ -20,7 +20,7 @@ export function WhatsAppButton() {
       {/* Tooltip */}
       <div
         className={cn(
-          "absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-white text-[#111] px-4 py-2 rounded-lg text-[12px] font-medium whitespace-nowrap shadow-lg transition-all duration-300",
+          "absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-white text-[#000] px-5 py-2.5 rounded-lg text-[14px] font-bold whitespace-nowrap shadow-xl transition-all duration-300",
           isHovered ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2 pointer-events-none"
         )}
       >

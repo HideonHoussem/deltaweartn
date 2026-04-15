@@ -61,13 +61,13 @@ export function Features() {
           <div className="text-[var(--accent)] mb-5 opacity-60 group-hover:opacity-100 transition-opacity">
             {feat.icon}
           </div>
-          <div className="text-[9px] tracking-[4px] text-[var(--accent)] mb-3 font-semibold">
+          <div className="text-[12px] tracking-[4px] text-[var(--accent)] mb-3 font-bold">
             {feat.num}
           </div>
           <div className="text-[18px] font-bold tracking-[1px] uppercase mb-3 leading-[1.2]">
             {feat.title}
           </div>
-          <div className="text-[12px] font-light text-white/35 leading-[1.9] group-hover:text-white/50 transition-colors">
+          <div className="text-[13px] font-normal text-white/70 leading-[1.9] group-hover:text-white/80 transition-colors">
             {feat.desc}
           </div>
         </AnimateOnScroll>

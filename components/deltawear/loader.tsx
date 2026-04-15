@@ -33,7 +33,7 @@ export function Loader() {
       <div className="w-[200px] h-[1px] bg-white/10">
         <div className="h-full bg-[var(--white)] w-0 animate-[loaderBar_1.4s_0.5s_ease_forwards]" />
       </div>
-      <div className="text-[10px] tracking-[8px] text-white/30 animate-[loaderPop_0.6s_0.8s_forwards] opacity-0">
+      <div className="text-[12px] tracking-[8px] text-white/70 animate-[loaderPop_0.6s_0.8s_forwards] opacity-0 font-bold">
         BUILT DIFFERENT
       </div>
     </div>

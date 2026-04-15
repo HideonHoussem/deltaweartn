@@ -54,7 +54,7 @@ export function InstagramFeed() {
       <div className="px-6 md:px-16 text-center mb-12">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Instagram className="w-5 h-5 text-[var(--accent)]" />
-          <span className="text-[9px] tracking-[6px] uppercase text-[var(--accent)]">
+          <span className="text-[12px] tracking-[6px] uppercase text-[var(--accent)] font-bold">
             Follow Us
           </span>
         </div>
@@ -109,7 +109,7 @@ export function InstagramFeed() {
           href={instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] text-white text-[10px] tracking-[4px] uppercase font-bold hover:opacity-90 transition-opacity"
+          className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] text-white text-[12px] tracking-[4px] uppercase font-bold hover:opacity-90 transition-opacity"
         >
           <Instagram className="w-4 h-4" />
           Follow {instagramHandle}

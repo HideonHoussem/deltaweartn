@@ -21,7 +21,7 @@ export function SizeGuide() {
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 text-[10px] tracking-[2px] uppercase text-white/50 hover:text-[var(--accent)] transition-colors cursor-pointer"
+        className="flex items-center gap-2 text-[12px] tracking-[2px] uppercase text-white/60 hover:text-[var(--accent)] transition-colors cursor-pointer font-medium"
       >
         <Ruler className="w-3.5 h-3.5" />
         Size Guide
@@ -44,7 +44,7 @@ export function SizeGuide() {
                 <h3 className="text-[18px] font-bold tracking-[-0.5px] uppercase mb-1">
                   Size Guide
                 </h3>
-                <p className="text-[10px] tracking-[2px] uppercase text-white/40">
+                <p className="text-[12px] tracking-[2px] uppercase text-white/60 font-medium">
                   All measurements in centimeters
                 </p>
               </div>
@@ -58,7 +58,7 @@ export function SizeGuide() {
 
             {/* Size Selection */}
             <div className="p-6 border-b border-[var(--border)]">
-              <div className="text-[8px] tracking-[4px] uppercase text-white/40 mb-3">
+              <div className="text-[12px] tracking-[4px] uppercase text-white/70 mb-3 font-bold">
                 Select Your Size
               </div>
               <div className="flex gap-2">
@@ -84,19 +84,19 @@ export function SizeGuide() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-[var(--border)]">
-                    <th className="text-left text-[8px] tracking-[4px] uppercase text-white/40 pb-4">
+                    <th className="text-left text-[11px] tracking-[4px] uppercase text-white/70 pb-4 font-bold">
                       Size
                     </th>
-                    <th className="text-center text-[8px] tracking-[4px] uppercase text-white/40 pb-4">
+                    <th className="text-center text-[11px] tracking-[4px] uppercase text-white/70 pb-4 font-bold">
                       Chest
                     </th>
-                    <th className="text-center text-[8px] tracking-[4px] uppercase text-white/40 pb-4">
+                    <th className="text-center text-[11px] tracking-[4px] uppercase text-white/70 pb-4 font-bold">
                       Waist
                     </th>
-                    <th className="text-center text-[8px] tracking-[4px] uppercase text-white/40 pb-4">
+                    <th className="text-center text-[11px] tracking-[4px] uppercase text-white/70 pb-4 font-bold">
                       Hips
                     </th>
-                    <th className="text-center text-[8px] tracking-[4px] uppercase text-white/40 pb-4">
+                    <th className="text-center text-[11px] tracking-[4px] uppercase text-white/70 pb-4 font-bold">
                       Height
                     </th>
                   </tr>
@@ -120,16 +120,16 @@ export function SizeGuide() {
                           {item.size}
                         </span>
                       </td>
-                      <td className="text-center text-[12px] text-white/60 py-4">
+                      <td className="text-center text-[12px] text-white/90 py-4 font-medium">
                         {item.chest}
                       </td>
-                      <td className="text-center text-[12px] text-white/60 py-4">
+                      <td className="text-center text-[12px] text-white/90 py-4 font-medium">
                         {item.waist}
                       </td>
-                      <td className="text-center text-[12px] text-white/60 py-4">
+                      <td className="text-center text-[12px] text-white/90 py-4 font-medium">
                         {item.hips}
                       </td>
-                      <td className="text-center text-[12px] text-white/60 py-4">
+                      <td className="text-center text-[12px] text-white/90 py-4 font-medium">
                         {item.height}
                       </td>
                     </tr>
@@ -140,10 +140,10 @@ export function SizeGuide() {
 
             {/* Tips */}
             <div className="p-6 bg-[#080808] border-t border-[var(--border)]">
-              <div className="text-[9px] tracking-[3px] uppercase text-[var(--accent)] mb-3">
+              <div className="text-[12px] tracking-[3px] uppercase text-[var(--accent)] mb-3 font-bold">
                 Fit Tips
               </div>
-              <ul className="space-y-2 text-[11px] text-white/50 leading-relaxed">
+              <ul className="space-y-2 text-[11px] text-white/80 leading-relaxed font-medium">
                 <li>• Compression fit - designed to be tight for muscle support</li>
                 <li>• If between sizes, choose the larger size for a less compressive fit</li>
                 <li>• Measure over underwear for the most accurate results</li>
