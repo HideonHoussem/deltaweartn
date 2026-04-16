@@ -36,7 +36,7 @@ export function Hero() {
         {/* Eyebrow */}
         <div className="flex items-center gap-4 mb-7 opacity-0 animate-[fadeSlideUp_0.8s_0.4s_forwards]">
           <div className="w-10 h-[1px] bg-[var(--accent)]" />
-          <div className="text-[11px] font-medium tracking-[7px] uppercase text-[var(--accent)]/90">
+          <div className="text-[11px] font-black tracking-[4px] uppercase text-[var(--accent)]">
             Drop 001 · Now Available · Tunisia
           </div>
         </div>
@@ -83,7 +83,7 @@ export function Hero() {
           <div key={i}>
             <div className="text-right">
               <div className="text-4xl font-light tracking-[-1px] leading-none">{stat.num}</div>
-              <div className="text-[11px] tracking-[4px] text-white/60 uppercase mt-1.5 font-medium">{stat.label}</div>
+              <div className="text-[11px] tracking-[3px] text-white/90 uppercase mt-1.5 font-black">{stat.label}</div>
             </div>
             {i < 2 && <div className="w-10 h-[1px] bg-white/10 self-end mt-4" />}
           </div>

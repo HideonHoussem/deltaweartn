@@ -25,7 +25,7 @@ export function Products() {
           </h2>
         </AnimateOnScroll>
         <AnimateOnScroll animation="fadeUp" delay={150}>
-          <p className="text-[13px] font-normal text-white/70 leading-[1.9] max-w-[360px] self-end">
+          <p className="text-[13px] font-bold text-white/90 leading-[1.9] max-w-[360px] self-end uppercase tracking-[1px]">
             Our first release. Every detail engineered for maximum performance and minimal distraction. 
             Wear it to the gym. Wear it to the world.
           </p>
@@ -95,7 +95,11 @@ function ProductShowcase({ product, delayOffset }: { product: Product; delayOffs
     <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-start">
       {/* Left: Product Gallery */}
       <AnimateOnScroll animation="fadeRight" delay={100 + delayOffset}>
-        <ProductGallery images={product.images} badgeNumber={product.badgeNumber} />
+        <ProductGallery 
+          images={product.images} 
+          badgeNumber={product.badgeNumber} 
+          hotspots={product.hotspots}
+        />
       </AnimateOnScroll>
 
       {/* Right: Product Info */}
@@ -127,7 +131,7 @@ function ProductShowcase({ product, delayOffset }: { product: Product; delayOffs
               </StaggerItem>
 
               <StaggerItem>
-                <div className="text-[12px] font-medium text-white/70 tracking-[1px] leading-[1.8] mb-6">
+                <div className="text-[12px] font-black text-white/90 tracking-[1px] leading-[1.8] mb-6 uppercase">
                   {product.color} - {product.fit}
                   <br />
                   {product.features.slice(0, 2).join(' - ')}
@@ -139,12 +143,12 @@ function ProductShowcase({ product, delayOffset }: { product: Product; delayOffs
               <StaggerItem>
                 <div className="flex items-baseline gap-2.5 mb-2">
                   <span className="text-[38px] font-extralight tracking-[-1px]">{product.price}</span>
-                  <span className="text-[13px] text-white/60 tracking-[2px] font-medium">TND</span>
+                  <span className="text-[13px] text-[var(--accent)] tracking-[2px] font-black">TND</span>
                 </div>
               </StaggerItem>
 
               <StaggerItem>
-                <div className="text-[11px] tracking-[3px] text-white/60 uppercase mb-8 font-medium">
+                <div className="text-[11px] tracking-[2px] text-white/80 uppercase mb-8 font-black">
                   Free delivery - 2-4 days - All Tunisia
                 </div>
               </StaggerItem>

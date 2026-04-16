@@ -9,6 +9,7 @@ export interface Product {
   features: string[]
   inStock: boolean
   badgeNumber: string
+  hotspots: { x: number; y: number; label: string; info: string }[]
 }
 
 export const PRODUCTS: Product[] = [
@@ -27,6 +28,11 @@ export const PRODUCTS: Product[] = [
     features: ["4-Way Stretch", "Moisture Wicking", "Raglan Sleeve Construction"],
     inStock: true,
     badgeNumber: "011",
+    hotspots: [
+      { x: 50, y: 35, label: "Compression Core", info: "High-tension poly-elastane for core stability." },
+      { x: 30, y: 25, label: "Delta-Shoulder", info: "Reinforced 4-way seam for maximum mobility." },
+      { x: 50, y: 70, label: "Vento-Mesh", info: "Laser-cut ventilation for heat dissipation." },
+    ],
   },
   {
     id: "drop-spider-comp",
@@ -42,5 +48,10 @@ export const PRODUCTS: Product[] = [
     features: ["Spider Graphic", "Premium Stretch", "Ultra-Breathable Fabric"],
     inStock: true,
     badgeNumber: "077",
+    hotspots: [
+      { x: 50, y: 40, label: "Spider-Shield", info: "Impact-resistant graphic print with zero-crack technology." },
+      { x: 75, y: 30, label: "Elite Breathability", info: "Ultra-thin moisture-wicking weave." },
+      { x: 50, y: 80, label: "Anatomic Fit", info: "Contoured stitching for muscle group compression." },
+    ],
   },
 ]

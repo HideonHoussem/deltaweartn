@@ -6,7 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/lib/cart-context"
-import { ShoppingBag, Lock } from "lucide-react"
+import { ShoppingBag } from "lucide-react"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -41,7 +41,7 @@ export function Navbar() {
           height={32}
           className="w-8 h-8 object-contain"
         />
-        <span className="text-[11px] md:text-[13px] font-bold tracking-[4px] md:tracking-[6px] uppercase text-[var(--white)] whitespace-nowrap">
+        <span className="text-[11px] md:text-[13px] font-black tracking-[4px] md:tracking-[4px] uppercase text-[var(--white)] whitespace-nowrap">
           DeltaWear
         </span>
       </Link>
@@ -51,13 +51,12 @@ export function Navbar() {
           { label: "Collection", id: "products" },
           { label: "Features", id: "features" },
           { label: "FAQ", id: "faq" },
-          { label: "The Vault", id: "/vault", type: "link" },
         ].map((item) => (
           item.type === "link" ? (
             <a 
               key={item.label}
               href={item.id}
-              className="flex items-center gap-2 text-[11px] font-semibold tracking-[5px] uppercase text-[var(--accent)] hover:text-white transition-all relative group cursor-pointer"
+              className="flex items-center gap-2 text-[11px] font-black tracking-[2px] uppercase text-[var(--accent)] hover:text-white transition-all relative group cursor-pointer"
             >
               <Lock className="w-3 h-3 group-hover:scale-110 transition-transform" />
               {item.label}
@@ -67,7 +66,7 @@ export function Navbar() {
             <Link
               key={item.id}
               href={`/#${item.id}`}
-              className="text-[11px] font-semibold tracking-[5px] uppercase text-white/70 hover:text-white transition-colors relative group cursor-pointer"
+              className="text-[11px] font-black tracking-[2px] uppercase text-white/90 hover:text-white transition-colors relative group cursor-pointer"
             >
               {item.label}
               <span className="absolute bottom-[-4px] left-0 w-0 h-[1px] bg-[var(--accent)] group-hover:w-full transition-all duration-300" />
@@ -76,7 +75,7 @@ export function Navbar() {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className="text-[11px] font-semibold tracking-[5px] uppercase text-white/70 hover:text-white transition-colors relative group cursor-pointer bg-transparent border-none"
+              className="text-[11px] font-black tracking-[2px] uppercase text-white/90 hover:text-white transition-colors relative group cursor-pointer bg-transparent border-none"
             >
               {item.label}
               <span className="absolute bottom-[-4px] left-0 w-0 h-[1px] bg-[var(--accent)] group-hover:w-full transition-all duration-300" />

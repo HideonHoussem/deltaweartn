@@ -68,13 +68,16 @@ export async function POST(req: NextRequest) {
 
     const { error: dbError } = await supabase.from("orders").insert([order])
     if (dbError) {
-      console.error("Supabase Database Insert Error:", dbError.message, dbError.details, dbError.hint)
-      throw dbError
+      console.error("Supabase Database Insert Error:", dbError.message)
+      return NextResponse.json({ 
+        error: `Database Error: ${dbError.message}`,
+        details: "Ensure the 'orders' table exists in Supabase. Check supabase-setup.sql."
+      }, { status: 500 })
     }
 
     return NextResponse.json({ success: true, id: order.id })
   } catch (err: any) {
     console.error("Order Submission Critical Error:", err)
-    return NextResponse.json({ error: `Order Failure: ${err?.message || 'Check database connection'}` }, { status: 500 })
+    return NextResponse.json({ error: `System Failure: ${err?.message || 'Check connection'}` }, { status: 500 })
   }
 }

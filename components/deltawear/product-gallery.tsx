@@ -3,15 +3,17 @@
 import { useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Scan, X } from "lucide-react"
 
 interface ProductGalleryProps {
   images: { src: string; alt: string }[]
   badgeNumber?: string
+  hotspots?: { x: number; y: number; label: string; info: string }[]
 }
 
-export function ProductGallery({ images, badgeNumber = "011" }: ProductGalleryProps) {
+export function ProductGallery({ images, badgeNumber = "011", hotspots = [] }: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isXRay, setIsXRay] = useState(false)
 
   const nextImage = () => {
     setActiveIndex((prev) => (prev + 1) % images.length)
@@ -41,14 +43,49 @@ export function ProductGallery({ images, badgeNumber = "011" }: ProductGalleryPr
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75%] h-[75%] bg-[var(--accent)]/10 rounded-full blur-[100px] pointer-events-none animate-[glowPulse_6s_infinite_ease-in-out]" />
 
         {/* Main Product Image */}
-        <div className="relative w-full h-full p-6 animate-[float_8s_infinite_ease-in-out] z-20">
+        <div className={cn(
+          "relative w-full h-full p-6 animate-[float_8s_infinite_ease-in-out] z-20 transition-all duration-700",
+          isXRay ? "brightness-[1.2] contrast-[1.2] hue-rotate-[10deg] saturate-[1.5]" : ""
+        )}>
           <Image
             src={images[activeIndex].src}
             alt={images[activeIndex].alt}
             fill
-            className="object-contain mix-blend-screen brightness-[1.1] drop-shadow-[0_20px_60px_rgba(0,0,0,1)] transition-transform duration-1000 group-hover:scale-105"
+            className={cn(
+              "object-contain mix-blend-screen transition-all duration-1000 group-hover:scale-105",
+              isXRay ? "filter brightness-150 drop-shadow-[0_0_30px_rgba(200,169,110,0.4)]" : "brightness-[1.1] drop-shadow-[0_20px_60px_rgba(0,0,0,1)]"
+            )}
             priority
           />
+          
+          {/* X-Ray Tech Overlay Layer */}
+          <div className={cn(
+             "absolute inset-0 z-30 pointer-events-none transition-opacity duration-700 delay-300",
+             isXRay ? "opacity-100" : "opacity-0"
+          )}>
+             {/* Tech Grid Lines */}
+             <div className="absolute inset-0 bg-[#c8a96e]/10 mix-blend-overlay opacity-30" 
+                  style={{ backgroundImage: 'linear-gradient(#c8a96e 1px, transparent 1px), linear-gradient(90deg, #c8a96e 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+             
+             {/* Tech Hotspots */}
+             {hotspots.map((spot, i) => (
+                <div 
+                  key={i}
+                  className="absolute pointer-events-auto group/spot"
+                  style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
+                >
+                   {/* Radar Pulse */}
+                   <div className="absolute -translate-x-1/2 -translate-y-1/2 size-8 bg-[var(--accent)]/40 rounded-full animate-ping" />
+                   <div className="relative -translate-x-1/2 -translate-y-1/2 size-3 bg-[var(--accent)] rounded-full shadow-[0_0_20px_var(--accent)] cursor-help border border-black" />
+                   
+                   {/* Tooltip */}
+                   <div className="absolute top-4 left-4 min-w-[180px] bg-black/90 backdrop-blur-xl border border-[var(--accent)]/30 p-4 rounded-xl opacity-0 group-hover/spot:opacity-100 transition-all duration-300 translate-y-2 group-hover/spot:translate-y-0 shadow-2xl z-40">
+                      <div className="text-[10px] font-black uppercase tracking-[3px] text-[var(--accent)] mb-1">{spot.label}</div>
+                      <div className="text-[12px] text-white/60 font-medium leading-tight">{spot.info}</div>
+                   </div>
+                </div>
+             ))}
+          </div>
         </div>
 
         {/* Background Layer: Product ID Typography (Refined Jersey Outline) */}
@@ -92,6 +129,24 @@ export function ProductGallery({ images, badgeNumber = "011" }: ProductGalleryPr
         <div className="absolute bottom-6 left-6 text-[10px] tracking-[4px] uppercase text-white/40 font-bold bg-black/40 backdrop-blur-sm px-4 py-2 border border-white/5">
           {activeIndex + 1} <span className="text-[var(--accent)]">/</span> {images.length}
         </div>
+
+        {/* X-Ray Toggle Button */}
+        <button
+          onClick={() => setIsXRay(!isXRay)}
+          className={cn(
+            "absolute top-6 right-6 z-40 px-5 py-2.5 rounded-full border flex items-center gap-3 transition-all duration-500 cursor-pointer overflow-hidden group/btn",
+            isXRay 
+              ? "bg-[var(--accent)] border-[var(--accent)] text-black shadow-[0_0_30px_rgba(200,169,110,0.5)]" 
+              : "bg-black/60 border-white/10 text-white/60 hover:border-[var(--accent)]/50 hover:text-white"
+          )}
+        >
+          {isXRay ? <X className="size-4" /> : <Scan className="size-4 animate-pulse" />}
+          <span className="text-[10px] font-black uppercase tracking-[4px]">
+            {isXRay ? "EXIT SCAN" : "SCAN TECH"}
+          </span>
+          {/* Animated Background Glow */}
+          {!isXRay && <div className="absolute inset-x-[-100%] inset-y-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover/btn:translate-x-[200%] transition-transform duration-1000 pointer-events-none" />}
+        </button>
       </div>
 
       {/* Thumbnails */}

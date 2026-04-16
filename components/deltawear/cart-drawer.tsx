@@ -94,12 +94,16 @@ export function CartDrawer() {
         body: JSON.stringify(payload),
       })
 
-      if (!res.ok) throw new Error("Submission failed")
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || data.details || "Submission failed")
+      }
 
       setSubmitted(true)
       clearCart()
-    } catch (err) {
-      alert("Failed to place order. Please try again.")
+    } catch (err: any) {
+      alert(`Order Error: ${err.message}`)
     } finally {
       setLoading(false)
     }

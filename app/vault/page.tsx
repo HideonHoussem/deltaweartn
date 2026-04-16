@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Navbar } from "@/components/deltawear/navbar"
 import { Footer } from "@/components/deltawear/footer"
-import { Lock, ShieldCheck, Zap, Eye, Database, Terminal, ChevronRight } from "lucide-react"
+import { Lock, ShieldCheck, Zap, Eye, Database, Terminal, ChevronRight, Trophy, Target, Activity } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { cn } from "@/lib/utils"
 
@@ -14,6 +14,15 @@ export default function VaultPage() {
   const [isExiting, setIsExiting] = useState(false)
   const { hasDiscount } = useCart()
   const [mounted, setMounted] = useState(false)
+
+  // Alliance Status State
+  const [rank, setRank] = useState({
+    name: "Specialist",
+    level: 4,
+    xp: 680,
+    nextLevelAt: 1000,
+    tier: "Gold"
+  })
 
   useEffect(() => {
     setMounted(true)
@@ -177,9 +186,70 @@ export default function VaultPage() {
                 </div>
               </div>
 
-              {/* Vertical Sidebar: Upcoming Drop */}
+              {/* Vertical Sidebar: Status & Upcoming Drop */}
               <div className="space-y-10 animate-in fade-in slide-in-from-right duration-1000 delay-[1300ms] fill-mode-both">
-                <div className="bg-[var(--accent)] p-10 rounded-[40px] text-black h-full flex flex-col justify-between min-h-[500px] shadow-[0_30px_90px_rgba(200,169,110,0.1)] relative overflow-hidden group">
+                
+                {/* Status Dashboard Section */}
+                <div className="bg-[#0a0a0a] border border-white/5 p-10 rounded-[40px] relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-8 text-white/5 opacity-10">
+                    <Activity className="size-20" />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-[11px] font-black uppercase tracking-[5px] text-white/30 mb-8">Status Evolution</h3>
+                    
+                    {/* Rank Badge */}
+                    <div className="flex items-center gap-6 mb-10">
+                      <div className="relative">
+                        <div className="size-20 rounded-full border-2 border-[var(--accent)]/20 flex items-center justify-center p-1">
+                          <div className="size-full rounded-full border border-[var(--accent)] flex items-center justify-center bg-[var(--accent)]/5 shadow-[0_0_30px_rgba(200,169,110,0.1)]">
+                             <Trophy className="size-8 text-[var(--accent)]" />
+                          </div>
+                        </div>
+                        {/* Level Badge */}
+                        <div className="absolute -bottom-1 -right-1 bg-[var(--accent)] text-black text-[10px] font-black size-7 rounded-full flex items-center justify-center border-4 border-[#0a0a0a]">
+                          {rank.level}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-[24px] font-black uppercase tracking-tight leading-none mb-1">{rank.name}</div>
+                        <div className="text-[10px] font-black uppercase tracking-[3px] text-[var(--accent)]">Tier 02 - {rank.tier}</div>
+                      </div>
+                    </div>
+
+                    {/* XP Progress */}
+                    <div className="space-y-4 mb-10">
+                      <div className="flex justify-between items-end">
+                        <span className="text-[10px] font-black uppercase tracking-[3px] text-white/40">XP Progress</span>
+                        <span className="text-[12px] font-mono text-[var(--accent)]">{rank.xp} / {rank.nextLevelAt}</span>
+                      </div>
+                      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-[var(--accent)] shadow-[0_0_15px_rgba(200,169,110,0.5)] transition-all duration-1000 ease-out"
+                          style={{ width: `${(rank.xp / rank.nextLevelAt) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Tactical Log */}
+                    <div className="space-y-4">
+                      <h4 className="text-[9px] font-black uppercase tracking-[4px] text-white/20 mb-4">Tactical Log</h4>
+                      {[
+                        { op: "Drop 001 Secured", xp: "+250 XP", color: "text-green-500" },
+                        { op: "Alliance Portal Sync", xp: "+100 XP", color: "text-blue-500" },
+                        { op: "Identity Verified", xp: "+50 XP", color: "text-white/40" },
+                      ].map((log, i) => (
+                        <div key={i} className="flex justify-between items-center bg-white/[0.02] p-4 rounded-xl border border-white/5">
+                           <span className="text-[10px] font-bold uppercase tracking-tight text-white/60">{log.op}</span>
+                           <span className={cn("text-[9px] font-black", log.color)}>{log.xp}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-[var(--accent)] p-10 rounded-[40px] text-black h-full flex flex-col justify-between min-h-[400px] shadow-[0_30px_90px_rgba(200,169,110,0.1)] relative overflow-hidden group">
                    {/* Architectural Decorative Watermark */}
                    <div className="absolute -bottom-10 -right-10 text-[20vw] font-black opacity-[0.05] pointer-events-none select-none group-hover:scale-110 transition-transform duration-1000">DW</div>
                    
