@@ -55,6 +55,11 @@ export function CartDrawer() {
     if (name === "phone") setPhoneError("")
   }
 
+  const [hasDiscount, setHasDiscount] = useState(false)
+  const discountRate = 0.10
+  const discountAmount = hasDiscount ? totalPrice * discountRate : 0
+  const finalPrice = totalPrice - discountAmount
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const { fname, lname, phone, city, address } = formData
@@ -76,6 +81,8 @@ export function CartDrawer() {
       product: items.map(i => `${i.productName} [${i.size}] (x${i.qty})`).join(" + "),
       size: items[0].size,
       qty: items.reduce((acc, item) => acc + item.qty, 0).toString(),
+      totalPrice: finalPrice.toFixed(3),
+      discountApplied: hasDiscount ? "10%" : "None",
       fullOrder: items 
     }
 
@@ -90,6 +97,7 @@ export function CartDrawer() {
 
       setSubmitted(true)
       clearCart()
+      setHasDiscount(false)
     } catch (err: any) {
       alert(`Order Error: ${err.message}`)
     } finally {
@@ -117,36 +125,62 @@ export function CartDrawer() {
                   <p className="text-gray-400 font-medium">Your cart is empty</p>
                 </div>
               ) : (
-                items.map((item) => (
-                  <div key={item.id} className="flex gap-4">
-                    <div className="w-24 h-24 bg-gray-50 rounded-lg overflow-hidden shrink-0 border border-gray-100">
-                      <Image src={item.image} alt={item.productName} width={96} height={96} className="object-cover" />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3 className="font-bold text-[16px] leading-tight mb-1">{item.productName}</h3>
-                        <p className="text-[13px] text-gray-500 mb-2">{item.size}</p>
-                        <div className="flex items-baseline gap-2">
-                          <span className="font-bold text-[15px]">{item.price.toFixed(3)} TND</span>
+                <>
+                  {items.map((item) => (
+                    <div key={item.id} className="flex gap-4">
+                      <div className="w-24 h-24 bg-gray-50 rounded-lg overflow-hidden shrink-0 border border-gray-100">
+                        <Image src={item.image} alt={item.productName} width={96} height={96} className="object-cover" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div>
+                          <h3 className="font-bold text-[16px] leading-tight mb-1">{item.productName}</h3>
+                          <p className="text-[13px] text-gray-500 mb-2">{item.size}</p>
+                          <div className="flex items-baseline gap-2">
+                            <span className="font-bold text-[15px]">{item.price.toFixed(3)} TND</span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between mt-4">
+                          <div className="flex items-center border border-gray-200 rounded-md">
+                            <button onClick={() => updateQty(item.id, -1)} className="px-3 py-1 hover:bg-gray-50">-</button>
+                            <span className="px-3 py-1 text-sm font-medium">{item.qty}</span>
+                            <button onClick={() => updateQty(item.id, 1)} className="px-3 py-1 hover:bg-gray-50">+</button>
+                          </div>
+                          <button 
+                            onClick={() => removeFromCart(item.id)}
+                            className="text-[13px] text-gray-400 hover:text-black transition-colors"
+                          >
+                            Remove
+                          </button>
                         </div>
                       </div>
-                      
-                      <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center border border-gray-200 rounded-md">
-                          <button onClick={() => updateQty(item.id, -1)} className="px-3 py-1 hover:bg-gray-50">-</button>
-                          <span className="px-3 py-1 text-sm font-medium">{item.qty}</span>
-                          <button onClick={() => updateQty(item.id, 1)} className="px-3 py-1 hover:bg-gray-50">+</button>
-                        </div>
-                        <button 
-                          onClick={() => removeFromCart(item.id)}
-                          className="text-[13px] text-gray-400 hover:text-black transition-colors"
-                        >
-                          Remove
-                        </button>
-                      </div>
                     </div>
-                  </div>
-                ))
+                  ))}
+
+                  {/* Discount Offer */}
+                  {!hasDiscount ? (
+                    <div className="bg-[var(--accent)]/5 border border-[var(--accent)]/20 p-4 rounded-xl flex flex-col gap-3">
+                       <p className="text-[12px] font-bold text-black/80">🎁 Get 10% OFF your order!</p>
+                       <p className="text-[11px] text-black/60 leading-tight">Follow us on Instagram @_deltaweartn to claim your discount.</p>
+                       <button 
+                         onClick={() => setHasDiscount(true)}
+                         className="text-[10px] font-black uppercase tracking-[2px] text-[var(--accent)] hover:underline text-left"
+                       >
+                         I followed, Apply 10% Off
+                       </button>
+                    </div>
+                  ) : (
+                    <div className="bg-green-50 border border-green-200 p-4 rounded-xl flex items-center justify-between">
+                       <div>
+                         <p className="text-[12px] font-bold text-green-700">✓ 10% Discount Applied</p>
+                         <p className="text-[10px] text-green-600">Instagram Follower Reward</p>
+                       </div>
+                       <button onClick={() => setHasDiscount(false)} className="text-green-800 opacity-50 hover:opacity-100">
+                         <X size={14} />
+                       </button>
+                    </div>
+                  )}
+                </>
               )}
 
               {showShipping && items.length > 0 && (
@@ -176,11 +210,22 @@ export function CartDrawer() {
             </div>
 
             <div className="p-6 border-t border-gray-100 bg-white">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[16px] font-medium">Subtotal</span>
-                <span className="text-[18px] font-bold">{totalPrice.toFixed(3)} TND</span>
+              <div className="space-y-2 mb-6">
+                <div className="flex justify-between items-center text-gray-500">
+                  <span className="text-[14px]">Subtotal</span>
+                  <span className="text-[14px]">{totalPrice.toFixed(3)} TND</span>
+                </div>
+                {hasDiscount && (
+                  <div className="flex justify-between items-center text-green-600">
+                    <span className="text-[14px]">Instagram Discount (10%)</span>
+                    <span className="text-[14px] font-bold">-{discountAmount.toFixed(3)} TND</span>
+                  </div>
+                )}
+                <div className="flex justify-between items-center pt-2 border-t border-gray-50">
+                  <span className="text-[16px] font-bold">Total</span>
+                  <span className="text-[20px] font-black">{finalPrice.toFixed(3)} TND</span>
+                </div>
               </div>
-              <p className="text-[13px] text-gray-500 mb-6">Shipping calculated at checkout</p>
               
               {!showShipping ? (
                 <button 
