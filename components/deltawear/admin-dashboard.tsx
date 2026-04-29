@@ -18,6 +18,8 @@ interface Order {
   note: string
   status: "new" | "confirmed" | "delivered"
   product: string
+  total_price?: string
+  discount_applied?: string
 }
 
 type Tab = "orders" | "catalog"
@@ -77,7 +79,7 @@ export function AdminDashboard() {
     } catch (err: any) { alert(err.message) }
   }
 
-  const revenue = orders.reduce((s, o) => s + (Number(o.qty) || 1) * 49, 0)
+  const revenue = orders.reduce((s, o) => s + (Number(o.total_price) || (Number(o.qty) || 1) * 49), 0)
   const newCount = orders.filter((o) => o.status === "new").length
   const deliveredCount = orders.filter((o) => o.status === "delivered").length
 
@@ -199,6 +201,7 @@ export function AdminDashboard() {
                         <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[1px]">Customer</th>
                         <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[1px]">Location</th>
                         <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[1px]">Details</th>
+                        <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[1px]">Price / Discount</th>
                         <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[1px]">Status</th>
                         <th className="px-6 py-4 text-[10px] font-bold text-gray-400 uppercase tracking-[1px] text-right">Logistics</th>
                       </tr>
@@ -229,6 +232,16 @@ export function AdminDashboard() {
                                 <span className="text-[11px] text-gray-400 font-bold">x{order.qty}</span>
                               </div>
                               <div className="text-[10px] text-gray-400 uppercase font-medium line-clamp-1">{order.product}</div>
+                            </td>
+                            <td className="px-6 py-6">
+                              <div className="font-bold text-sm text-black">
+                                {order.total_price ? `${Number(order.total_price).toFixed(3)} TND` : "Calculating..."}
+                              </div>
+                              {order.discount_applied && order.discount_applied !== "None" && (
+                                <div className="text-[10px] text-green-600 font-bold uppercase tracking-[1px]">
+                                  Discount: {order.discount_applied}
+                                </div>
+                              )}
                             </td>
                             <td className="px-6 py-6">
                               <select

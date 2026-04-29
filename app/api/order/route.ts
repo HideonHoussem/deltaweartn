@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     )
 
     const body = await req.json()
-    const { fname, lname, phone, city, address, size, qty, note, product } = body
+    const { fname, lname, phone, city, address, size, qty, note, product, totalPrice, discountApplied } = body
 
     // Server-side validation
     if (!fname?.trim() || !lname?.trim() || !phone || !city || !address?.trim() || !size || !product) {
@@ -64,6 +64,8 @@ export async function POST(req: NextRequest) {
       qty: qtyNum,
       note: note ? String(note).slice(0, 300).trim() : "",
       status: "new",
+      total_price: totalPrice ? String(totalPrice) : null,
+      discount_applied: discountApplied ? String(discountApplied) : "None"
     }
 
     const { error: dbError } = await supabase.from("orders").insert([order])

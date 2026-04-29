@@ -12,6 +12,8 @@ create table if not exists orders (
   qty         integer not null default 1,
   note        text,
   status      text not null default 'new' check (status in ('new', 'confirmed', 'delivered')),
+  total_price text,
+  discount_applied text,
   created_at  timestamptz default now()
 );
 
