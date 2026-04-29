@@ -24,12 +24,17 @@ export function SubscriptionStrip() {
           Experience Deltaweartn
         </h2>
         <p className="text-white/80 text-[13px] md:text-[15px] mb-8 tracking-[2px] uppercase font-medium">
-          Subscribe to our newsletter and get 10% off
+          Follow us on Instagram and get 10% off
         </p>
 
-        <button className="px-12 py-4 border border-white text-white text-[11px] tracking-[4px] uppercase font-bold hover:bg-white hover:text-black transition-all duration-500 shadow-xl">
+        <a 
+          href="https://www.instagram.com/_deltaweartn/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-12 py-4 border border-white text-white text-[11px] tracking-[4px] uppercase font-bold hover:bg-white hover:text-black transition-all duration-500 shadow-xl no-underline"
+        >
           Subscribe
-        </button>
+        </a>
       </div>
     </section>
   )

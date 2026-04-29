@@ -24,7 +24,7 @@ export function Footer() {
         {[
           { label: "Collection", href: "#products" },
           { label: "Order", href: "#order" },
-          { label: "Instagram", href: "https://instagram.com/deltaweartn", external: true },
+          { label: "Instagram", href: "https://www.instagram.com/_deltaweartn/", external: true },
         ].map((link) => (
           <a
             key={link.label}
