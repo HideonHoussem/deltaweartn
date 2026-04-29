@@ -30,7 +30,6 @@ export function Navbar() {
   const menuItems = [
     { label: "Shop", id: "products" },
     { label: "Vision", id: "philosophy" },
-    { label: "Community", id: "features" },
   ]
 
   return (

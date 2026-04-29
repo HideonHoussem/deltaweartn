@@ -49,7 +49,7 @@ export function InstagramFeed() {
   const instagramUrl = "https://www.instagram.com/deltaweartn/"
 
   return (
-    <RevealSection className="py-20 md:py-[100px] overflow-hidden">
+    <RevealSection id="features" className="py-20 md:py-[100px] overflow-hidden">
       {/* Header */}
       <div className="px-6 md:px-16 text-center mb-12">
         <div className="flex items-center justify-center gap-3 mb-4">
