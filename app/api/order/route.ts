@@ -80,10 +80,12 @@ export async function POST(req: NextRequest) {
     // Send Pushover Notification
     try {
       const { sendPushoverNotification } = await import("@/lib/pushover")
-      const notificationMessage = `📦 New Order ${order.id}\n👤 ${order.name}\n📞 ${order.phone}\n📍 ${order.city}, ${order.address}\n👕 ${order.product} (${order.size}) x${order.qty}\n📝 Note: ${order.note || 'None'}`
+      const discountText = discountApplied && discountApplied !== "None" ? `\n🎁 Discount: ${discountApplied}` : ""
+      const notificationMessage = `📦 NEW ORDER: ${order.id}\n━━━━━━━━━━━━━━━\n👤 Customer: ${order.name}\n📞 Phone: ${order.phone}\n📍 Location: ${order.city}, ${order.address}\n👕 Product: ${order.product} (${order.size}) x${order.qty}\n💰 Total: ${order.total_price} TND${discountText}\n📝 Note: ${order.note || 'None'}\n━━━━━━━━━━━━━━━`
       
+      console.log(`[Pushover] Attempting to send notification for order ${order.id}...`)
       // We don't await this so it doesn't block the response
-      sendPushoverNotification(notificationMessage, "DeltaWear New Order").catch(err => 
+      sendPushoverNotification(notificationMessage, "DeltaWear: New Order Received").catch(err => 
         console.error("Async Pushover Error:", err)
       )
     } catch (pushError) {

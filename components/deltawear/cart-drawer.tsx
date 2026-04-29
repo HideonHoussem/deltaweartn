@@ -161,9 +161,14 @@ export function CartDrawer() {
                   {!hasDiscount ? (
                     <div className="bg-[var(--accent)]/5 border border-[var(--accent)]/20 p-4 rounded-xl flex flex-col gap-3">
                        <p className="text-[12px] font-bold text-black/80">🎁 Get 10% OFF your order!</p>
-                       <p className="text-[11px] text-black/60 leading-tight">Follow us on Instagram @_deltaweartn to claim your discount.</p>
+                       <p className="text-[11px] text-black/60 leading-tight">
+                         Follow us on Instagram <a href="https://www.instagram.com/_deltaweartn" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] font-bold hover:underline">@_deltaweartn</a> to claim your discount.
+                       </p>
                        <button 
-                         onClick={() => setHasDiscount(true)}
+                         onClick={() => {
+                           window.open("https://www.instagram.com/_deltaweartn", "_blank");
+                           setHasDiscount(true);
+                         }}
                          className="text-[10px] font-black uppercase tracking-[2px] text-[var(--accent)] hover:underline text-left"
                        >
                          I followed, Apply 10% Off
