@@ -94,7 +94,8 @@ export function CartDrawer() {
         body: JSON.stringify(payload),
       })
 
-      if (!res.ok) throw new Error("Submission failed")
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Submission failed")
 
       setSubmitted(true)
       clearCart()
