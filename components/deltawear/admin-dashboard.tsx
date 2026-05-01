@@ -79,7 +79,7 @@ export function AdminDashboard() {
     } catch (err: any) { alert(err.message) }
   }
 
-  const revenue = orders.reduce((s, o) => s + (Number(o.total_price) || (Number(o.qty) || 1) * 49), 0)
+  const revenue = orders.reduce((s, o) => s + (Number(o.total_price) || (Number(o.qty) || 1) * 39), 0)
   const newCount = orders.filter((o) => o.status === "new").length
   const deliveredCount = orders.filter((o) => o.status === "delivered").length
 

@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "lefriki t shirt",
     name: "Lefriki T-Shirt",
-    price: "49",
+    price: "39",
     description: "Embrace the legacy with the Lefriki T-Shirt. Crafted from premium cotton for an oversized, comfortable fit, this piece features bold '1920' Club Africain graphics on the back. A perfect blend of street-style aesthetics and unwavering club pride.",
     images: [
       { src: "/images/m10.jpeg", alt: "Lefriki Back Detail" },
