@@ -86,7 +86,6 @@ export function Navbar() {
         <div className="flex items-center justify-end gap-6 md:gap-12">
           <div className="hidden lg:flex flex-col items-end">
             <span className="text-[9px] tracking-[4px] uppercase font-bold text-[var(--accent)]">Tunisia Official</span>
-            <span className="text-[8px] tracking-[2px] uppercase text-white/40">Free Express Delivery</span>
           </div>
 
           <button

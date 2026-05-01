@@ -21,7 +21,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: 'DeltaWear TN | Built Different',
-  description: 'Performance compression wear engineered for athletes who don\'t settle. Moisture-wicking technology, 4-way stretch fabric — made for the grind. Free delivery across Tunisia.',
+  description: 'Performance compression wear engineered for athletes who don\'t settle. Moisture-wicking technology, 4-way stretch fabric — made for the grind.',
   keywords: ['compression wear', 'athletic wear', 'Tunisia', 'sportswear', 'gym wear', 'fitness apparel'],
   authors: [{ name: 'DeltaWear TN' }],
   icons: {
