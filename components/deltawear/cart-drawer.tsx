@@ -58,7 +58,7 @@ export function CartDrawer() {
     if (name === "phone") setPhoneError("")
   }
 
-  const finalPrice = totalPrice
+  const finalPrice = totalPrice + 10 // Adding 10 TND shipping fee
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -233,7 +233,7 @@ export function CartDrawer() {
               <div className="space-y-2 mb-6">
                 <div className="flex justify-between items-center text-gray-500">
                   <span className="text-[14px]">Subtotal</span>
-                  <span className="text-[14px]">{totalPrice.toFixed(3)} TND</span>
+                  <span className="text-[14px] font-bold">{totalPrice.toFixed(3)} TND</span>
                 </div>
                 {hasDiscount && (
                   <div className="flex justify-between items-center text-green-600">
@@ -241,6 +241,10 @@ export function CartDrawer() {
                     <span className="text-[14px] font-bold">-{ (totalPrice / 0.9 * 0.1).toFixed(3) } TND</span>
                   </div>
                 )}
+                <div className="flex justify-between items-center text-gray-600">
+                  <span className="text-[14px]">Frais de Livraison</span>
+                  <span className="text-[14px] font-bold">10.000 TND</span>
+                </div>
                 <div className="flex justify-between items-center pt-2 border-t border-gray-50">
                   <span className="text-[16px] font-bold">Total</span>
                   <span className="text-[20px] font-black">{finalPrice.toFixed(3)} TND</span>
