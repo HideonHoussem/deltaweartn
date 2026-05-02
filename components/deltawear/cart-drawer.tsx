@@ -100,7 +100,7 @@ export function CartDrawer() {
       if (!res.ok) {
         const errorData = await res.json()
         console.error("Order submission failed:", errorData);
-        throw new Error(errorData.error || "Submission failed")
+        throw new Error(errorData.message || errorData.error || `Submission failed (Status: ${res.status})`)
       }
       
       const successData = await res.json();

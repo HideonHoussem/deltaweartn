@@ -74,13 +74,17 @@ export async function POST(req: NextRequest) {
       discount_applied: discountApplied ? String(discountApplied) : "None"
     }
 
+    console.log("Supabase Insert Payload:", order);
     const { error: dbError } = await supabase.from("orders").insert([order])
+    
     if (dbError) {
       console.error("Supabase Database Insert Error:", dbError);
       return NextResponse.json({ 
-        error: `Database Error: ${dbError.message || 'Unknown error'}`,
-        code: dbError.code,
-        details: "Ensure the 'orders' table exists in Supabase with correct columns (check supabase-setup.sql)."
+        error: "Database Error",
+        message: dbError.message || "Unknown Supabase error",
+        details: dbError.details || "No further details",
+        hint: dbError.hint || "Check your Supabase table schema",
+        code: dbError.code
       }, { status: 500 })
     }
     console.log("Order saved successfully to Supabase:", order.id);
