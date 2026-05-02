@@ -126,7 +126,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const totalItems = items.reduce((acc, item) => acc + item.qty, 0)
   const rawTotalPrice = items.reduce((acc, item) => acc + item.price * item.qty, 0)
-  const totalPrice = hasDiscount ? rawTotalPrice * 0.95 : rawTotalPrice
+  const totalPrice = hasDiscount ? rawTotalPrice * 0.90 : rawTotalPrice
 
   return (
     <CartContext.Provider

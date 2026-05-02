@@ -33,7 +33,9 @@ export function CartDrawer() {
     removeFromCart, 
     totalPrice, 
     totalItems,
-    clearCart 
+    clearCart,
+    hasDiscount,
+    applyDiscount 
   } = useCart()
 
   const [formData, setFormData] = useState({
@@ -56,10 +58,7 @@ export function CartDrawer() {
     if (name === "phone") setPhoneError("")
   }
 
-  const [hasDiscount, setHasDiscount] = useState(false)
-  const discountRate = 0.10
-  const discountAmount = hasDiscount ? totalPrice * discountRate : 0
-  const finalPrice = totalPrice - discountAmount
+  const finalPrice = totalPrice
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -94,12 +93,13 @@ export function CartDrawer() {
         body: JSON.stringify(payload),
       })
 
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || "Submission failed")
-
+      if (!res.ok) {
+        const errorData = await res.json()
+        throw new Error(errorData.error || "Submission failed")
+      }
+      
       setSubmitted(true)
       clearCart()
-      setHasDiscount(false)
     } catch (err: any) {
       alert(`Order Error: ${err.message}`)
     } finally {
@@ -170,15 +170,15 @@ export function CartDrawer() {
                            Follow us on Instagram <a href="https://www.instagram.com/_deltaweartn" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] font-bold hover:underline">@_deltaweartn</a> to claim your discount.
                          </p>
                        </div>
-                       <Button 
-                         onClick={() => {
-                           window.open("https://www.instagram.com/_deltaweartn", "_blank");
-                           setHasDiscount(true);
-                         }}
-                         className="w-full bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-black font-black uppercase tracking-[2px] text-[11px] h-11 rounded-lg transition-all active:scale-[0.98]"
-                       >
-                         I Followed, Apply 10% Off
-                       </Button>
+                        <Button 
+                          onClick={() => {
+                            window.open("https://www.instagram.com/_deltaweartn", "_blank");
+                            applyDiscount();
+                          }}
+                          className="w-full bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-black font-black uppercase tracking-[2px] text-[11px] h-11 rounded-lg transition-all active:scale-[0.98]"
+                        >
+                          I Followed, Apply 10% Off
+                        </Button>
                     </div>
                   ) : (
                     <div className="bg-green-50 border border-green-200 p-4 rounded-xl flex items-center justify-between">
@@ -186,9 +186,9 @@ export function CartDrawer() {
                          <p className="text-[12px] font-bold text-green-700">✓ 10% Discount Applied</p>
                          <p className="text-[10px] text-green-600">Instagram Follower Reward</p>
                        </div>
-                       <button onClick={() => setHasDiscount(false)} className="text-green-800 opacity-50 hover:opacity-100">
-                         <X size={14} />
-                       </button>
+                        <button onClick={() => {}} className="text-green-800 opacity-50 cursor-default">
+                          <X size={14} className="invisible" />
+                        </button>
                     </div>
                   )}
                 </>
@@ -229,7 +229,7 @@ export function CartDrawer() {
                 {hasDiscount && (
                   <div className="flex justify-between items-center text-green-600">
                     <span className="text-[14px]">Instagram Discount (10%)</span>
-                    <span className="text-[14px] font-bold">-{discountAmount.toFixed(3)} TND</span>
+                    <span className="text-[14px] font-bold">-{ (totalPrice / 0.9 * 0.1).toFixed(3) } TND</span>
                   </div>
                 )}
                 <div className="flex justify-between items-center pt-2 border-t border-gray-50">
