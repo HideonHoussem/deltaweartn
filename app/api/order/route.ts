@@ -15,8 +15,14 @@ const VALID_GOVERNORATES = [
 export async function POST(req: NextRequest) {
   try {
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      console.error("Missing Supabase environment variables.")
-      return NextResponse.json({ error: "Server configuration error. Please try again later." }, { status: 500 })
+      const missing = [];
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL) missing.push("NEXT_PUBLIC_SUPABASE_URL");
+      if (!process.env.SUPABASE_SERVICE_ROLE_KEY) missing.push("SUPABASE_SERVICE_ROLE_KEY");
+      console.error("Missing Supabase environment variables:", missing.join(", "));
+      return NextResponse.json({ 
+        error: "Server configuration error (Missing API Keys).",
+        details: `Missing: ${missing.join(", ")}`
+      }, { status: 500 })
     }
 
     // Server-side Supabase client — created at request time, not build time
@@ -70,12 +76,14 @@ export async function POST(req: NextRequest) {
 
     const { error: dbError } = await supabase.from("orders").insert([order])
     if (dbError) {
-      console.error("Supabase Database Insert Error:", dbError.message)
+      console.error("Supabase Database Insert Error:", dbError);
       return NextResponse.json({ 
-        error: `Database Error: ${dbError.message}`,
-        details: "Ensure the 'orders' table exists in Supabase. Check supabase-setup.sql."
+        error: `Database Error: ${dbError.message || 'Unknown error'}`,
+        code: dbError.code,
+        details: "Ensure the 'orders' table exists in Supabase with correct columns (check supabase-setup.sql)."
       }, { status: 500 })
     }
+    console.log("Order saved successfully to Supabase:", order.id);
 
     // Send Pushover Notification
     try {

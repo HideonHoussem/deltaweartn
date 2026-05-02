@@ -86,6 +86,8 @@ export function CartDrawer() {
       fullOrder: items 
     }
 
+    console.log("Submitting order with payload:", payload);
+
     try {
       const res = await fetch("/api/order", {
         method: "POST",
@@ -93,14 +95,21 @@ export function CartDrawer() {
         body: JSON.stringify(payload),
       })
 
+      console.log("Response status:", res.status);
+
       if (!res.ok) {
         const errorData = await res.json()
+        console.error("Order submission failed:", errorData);
         throw new Error(errorData.error || "Submission failed")
       }
       
+      const successData = await res.json();
+      console.log("Order submitted successfully:", successData);
+
       setSubmitted(true)
       clearCart()
     } catch (err: any) {
+      console.error("Caught order error:", err);
       alert(`Order Error: ${err.message}`)
     } finally {
       setLoading(false)
