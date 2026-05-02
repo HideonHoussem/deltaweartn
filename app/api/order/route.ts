@@ -5,7 +5,7 @@ function validatePhone(phone: string): boolean {
   return /^[234579][0-9]{7}$/.test(phone.replace(/\s/g, ""))
 }
 
-const VALID_SIZES = ["S", "M", "L", "XL", "XXL"]
+const VALID_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "XXL"]
 const VALID_GOVERNORATES = [
   "Tunis","Ariana","Ben Arous","Manouba","Nabeul","Zaghouan","Bizerte","Béja",
   "Jendouba","Kef","Siliana","Sousse","Monastir","Mahdia","Sfax","Kairouan",
